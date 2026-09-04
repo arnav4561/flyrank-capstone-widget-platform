@@ -1,0 +1,2 @@
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/widget_platform
+SUPABASE_JWT_SECRET=your-jwt-secret-here
