@@ -10,3 +10,10 @@ and what was changed.
 - Initialized Git.
 - Created Python virtual environment.
 - No application code has been implemented yet.
+
+## Phase 2 — Project Foundation
+
+- Created the initial FastAPI application.
+- Added the `/health` endpoint.
+- Installed FastAPI and Uvicorn.
+- Verified the application locally.
