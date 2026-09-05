@@ -474,10 +474,13 @@ invalid IP handling
 rate-limit allowance
 rate-limit rejection
 rate-limit reset
+tenant isolation
+same-tenant widget access
+background side-effect enqueue failure handling
 
 The complete test suite passed successfully:
 
-12 passed
+15 passed
 Phase 18 — Seed Data
 
 A deterministic seed command was implemented:
@@ -615,3 +618,4 @@ Automated tests
 Second-origin demo
 Seed command
 Documentation
+

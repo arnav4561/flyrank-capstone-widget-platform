@@ -559,7 +559,7 @@ rate-limit window reset
 
 The suite has passed successfully with:
 
-12 passed
+15 passed
 21. Secrets and Environment Configuration
 Requirement
 
