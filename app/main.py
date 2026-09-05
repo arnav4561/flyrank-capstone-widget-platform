@@ -1,10 +1,13 @@
 from fastapi import Depends, FastAPI
+from fastapi.responses import FileResponse
 from sqlalchemy import text
 
 from app.api.dependencies import get_current_user
 from app.api.tenant import get_current_tenant
-from app.core.database import engine
 from app.api.widgets import router as widgets_router
+from app.api.public_widgets import router as public_widgets_router
+from app.core.database import engine
+
 
 app = FastAPI(
     title="FlyRank Widget Platform",
@@ -13,6 +16,16 @@ app = FastAPI(
 )
 
 app.include_router(widgets_router)
+app.include_router(public_widgets_router)
+
+
+@app.get("/widget/v1/widget.js")
+def widget_script():
+    return FileResponse(
+        "app/static/widget.js",
+        media_type="application/javascript",
+    )
+
 
 @app.get("/health")
 def health_check():

@@ -29,6 +29,12 @@ class WidgetService:
     ) -> Widget | None:
         return self.repository.get_by_id(widget_id, tenant_id)
 
+    def get_public_widget(
+        self,
+        public_id: UUID,
+    ) -> Widget | None:
+        return self.repository.get_by_public_id(public_id)
+
     def update_widget(
         self,
         widget: Widget,

@@ -49,6 +49,16 @@ class WidgetRepository:
 
         return self.db.scalar(statement)
 
+    def get_by_public_id(
+        self,
+        public_id: UUID,
+    ) -> Widget | None:
+        statement = select(Widget).where(
+            Widget.public_id == public_id
+        )
+
+        return self.db.scalar(statement)
+
     def update(
         self,
         widget: Widget,
