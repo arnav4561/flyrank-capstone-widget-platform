@@ -1,8 +1,9 @@
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
 from sqlalchemy import text
 
+from app.api.dependencies import get_current_user
+from app.api.tenant import get_current_tenant
 from app.core.database import engine
-
 
 app = FastAPI(
     title="FlyRank Widget Platform",
@@ -23,3 +24,20 @@ def database_health_check():
         value = result.scalar()
 
     return {"database": "ok", "result": value}
+
+
+@app.get("/api/v1/auth/me")
+def get_me(current_user=Depends(get_current_user)):
+    return {
+        "id": str(current_user.id),
+        "email": current_user.email,
+    }
+
+
+@app.get("/api/v1/tenant/me")
+def get_my_tenant(current_tenant=Depends(get_current_tenant)):
+    return {
+        "id": str(current_tenant.id),
+        "name": current_tenant.name,
+        "supabase_user_id": current_tenant.supabase_user_id,
+    }
