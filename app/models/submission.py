@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from uuid import UUID, uuid4
 
-from sqlalchemy import DateTime, ForeignKey, JSON, String, Uuid
+from sqlalchemy import DateTime, ForeignKey, Index, JSON, String, Uuid
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.core.database import Base
@@ -28,6 +28,11 @@ class Submission(Base):
         ForeignKey("widgets.id", ondelete="CASCADE"),
         nullable=False,
         index=True,
+    )
+
+    idempotency_key: Mapped[str | None] = mapped_column(
+        String(255),
+        nullable=True,
     )
 
     data: Mapped[dict] = mapped_column(
@@ -65,4 +70,14 @@ class Submission(Base):
         default=lambda: datetime.now(timezone.utc),
         nullable=False,
         index=True,
+    )
+
+    __table_args__ = (
+        Index(
+            "uq_submission_tenant_widget_idempotency",
+            "tenant_id",
+            "widget_id",
+            "idempotency_key",
+            unique=True,
+        ),
     )
