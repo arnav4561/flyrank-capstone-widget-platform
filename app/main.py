@@ -4,6 +4,7 @@ from sqlalchemy import text
 from app.api.dependencies import get_current_user
 from app.api.tenant import get_current_tenant
 from app.core.database import engine
+from app.api.widgets import router as widgets_router
 
 app = FastAPI(
     title="FlyRank Widget Platform",
@@ -11,6 +12,7 @@ app = FastAPI(
     version="0.1.0",
 )
 
+app.include_router(widgets_router)
 
 @app.get("/health")
 def health_check():
